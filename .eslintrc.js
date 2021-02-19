@@ -1,9 +1,9 @@
 module.exports = {
   root: true,
   parserOptions: {
-    "parser":"babel-selint",
+    "parser": "babel-selint",
     sourceType: 'module',
-  "allowImportExportEverywhere": true  //ignore eslint error: 'import' and 'export' may only appear at the top level
+    "allowImportExportEverywhere": true  //ignore eslint error: 'import' and 'export' may only appear at the top level
   },
   env: {
     browser: true,
@@ -11,9 +11,9 @@ module.exports = {
     es6: true,
   },
   parser: 'vue-eslint-parser',
-      parserOptions: {
-      sourceType: 'module',
-    },
+  parserOptions: {
+    sourceType: 'module',
+  },
   extends: 'eslint:recommended',
   // required to lint *.vue files
   plugins: [
@@ -170,7 +170,7 @@ module.exports = {
       'after': true
     }],
     'space-before-blocks': [2, 'always'],
-    'space-before-function-paren': [2, 'never'],
+    'space-before-function-paren': [1, 'never'],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [2, {
