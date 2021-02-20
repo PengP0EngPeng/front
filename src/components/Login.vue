@@ -30,7 +30,7 @@
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
@@ -68,6 +68,16 @@ export default {
     resetLoginForm () {
       // console.log(this)
       this.$refs.loginFormRef.resetFields()
+    },
+    /* eslint-disable */
+    login () {
+      // validate调用有一个回调函数，可以判断返回的布尔值
+      // eslint-disable-next-line
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return
+        const result = await this.$http.post("login", this.loginForm)
+        console.log(result)
+      })
     }
   }
 }

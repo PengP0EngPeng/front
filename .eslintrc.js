@@ -14,7 +14,7 @@ module.exports = {
   parserOptions: {
     sourceType: 'module',
   },
-  extends: 'eslint:recommended',
+  extends: 'standard',
   // required to lint *.vue files
   plugins: [
     'html',
