@@ -45,8 +45,8 @@ export default {
     return {
       // 登陆表单数据对象
       loginForm: {
-        username: 'asd',
-        password: '12344'
+        username: 'admin',
+        password: '123456'
       },
       // 表单验证规则对象
       loginFormRules: {
@@ -75,8 +75,18 @@ export default {
       // eslint-disable-next-line
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
-        const result = await this.$http.post("login", this.loginForm)
-        console.log(result)
+        const { data: res } = await this.$axios.post("login", this.loginForm)
+        if (res.meta.status !== 200) {
+          this.$message.error("登陆失败！");
+        } else {
+          this.$message.success("登陆成功！");
+          window.sessionStorage.setItem("token", res.data.token)
+          this.$router.push("/home")
+          // 将后端的接口返回的token保存至sessionStorage，仅会话期间生效
+          // 1.1 其他后端接口需要token验证
+          // 1.2 token只在打开网站期间生效，不能一直存在
+          //登录成功之后跳转到管理端首页
+        }
       })
     }
   }
