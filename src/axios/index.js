@@ -1,13 +1,19 @@
 import axios from 'axios';
 axios.defaults.baseURL = '/api'       //此路径为配置代理服务器时的代理路径
+axios.interceptors.request.use(config => {
+  console.log(config)
+  //在最后必须 return config
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+  return config  // 用来控制请求头，可以在头里加东西
+})
 
 export default {
-  get (url, data, responseType) { // url: 接口；路径；data: 请求参数；responseType：相应的数据类型，不传默认为json
+  get (url, params, responseType) { // url: 接口；路径；data: 请求参数；responseType：相应的数据类型，不传默认为json
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
         url,
-        data,
+        params,
         headers: {
           Accept: 'application/json', 'Content-Type': 'application/json; charset=utf-8',
           withCredentials: true,
@@ -29,6 +35,28 @@ export default {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
+        url,
+        data,
+        headers: {
+          Accept: 'application/json', 'Content-Type': 'application/json; charset=utf-8',
+          withCredentials: true,
+        },
+        //默认json格式，如果是下载文件，需要传 responseType:'blob'
+        responseType: (responseType == null || responseType == '') ? 'json' : responseType
+      }).then(response => {
+        if (response.status == 200) {
+          //根据实际情况进行更改
+          resolve(response)
+        } else {
+          reject(response)
+        }
+      })
+    })
+  },
+  put (url, data, responseType) { // url: 接口；路径；data: 请求参数；responseType：相应的数据类型，不传默认为json
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'put',
         url,
         data,
         headers: {
