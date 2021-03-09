@@ -72,6 +72,7 @@
                 type="warning"
                 icon="el-icon-setting"
                 size="mini"
+                @click="setRolesById(scope.row.id)"
               ></el-button>
             </el-tooltip>
           </template>
@@ -352,6 +353,10 @@ export default {
           this.getUserList()
         }
       }
+    },
+    // 根据id分配给当前用户角色
+    async setRolesById (id) {
+      const { data: res } = await this.$axios.put(`users/${id}/role`)
     }
   }
 }
